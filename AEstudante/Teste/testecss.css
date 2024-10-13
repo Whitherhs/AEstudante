@@ -1,0 +1,32 @@
+/* Estilo do objeto alvo */
+.hover-target {
+  width: 200px;
+  height: 100px;
+  background-color: #4caf50;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 20px; /* Espaçamento entre os elementos */
+}
+
+/* Estilo do overlay */
+.overlay {
+  position: absolute;
+  top: 110%; /* Posiciona abaixo do elemento */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* Inicialmente oculto */
+}
+
+/* Overlay visível */
+.overlay.show {
+  display: block;
+}

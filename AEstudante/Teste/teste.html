@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overlay Example</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 150px;
+      background-color: lightblue;
+      margin: 20px;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      line-height: 150px;
+      cursor: pointer;
+    }
+
+    /* Estilo base para o overlay */
+    #overlay {
+
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Fundo escuro e semi-transparente */
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      padding-top: 20%;
+      transition: all 0.3s ease-in-out;
+      /* Transição suave */
+    }
+
+    /* Quando a classe 'show' for adicionada, o overlay será exibido */
+    #overlay.show {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box" data-overlay="Overlay 1">Objeto 1</div>
+  <div class="box" data-overlay="Overlay 2">Objeto 2</div>
+  <div class="box" data-overlay="Overlay 3">Objeto 3</div>
+
+  <div id="overlay"></div>
+
+  <script>
+    // Seleciona todos os elementos com a classe 'box'
+    const boxes = document.querySelectorAll('.box');
+    const overlay = document.getElementById('overlay');
+    let overlayTimeout; // Variável para controlar o temporizador
+    let isOverlayVisible = false; // Para verificar se o overlay já está visível
+
+    // Função para exibir o overlay com atraso
+    function showOverlay(event) {
+      const overlayText = event.target.getAttribute('data-overlay'); // Pega o texto do data-overlay
+
+      // Só exibe o overlay se ele não estiver visível
+      if (!isOverlayVisible) {
+        overlayTimeout = setTimeout(() => {
+          overlay.innerHTML = overlayText;
+          overlay.style.display = 'block'; // Exibe o overlay
+          isOverlayVisible = true; // Marca que o overlay está visível
+        }, 200); // 500 milissegundos de atraso
+      }
+    }
+
+    // Função para esconder o overlay
+    function hideOverlay() {
+      clearTimeout(overlayTimeout); // Cancela o timeout se o mouse sair antes do tempo
+      overlay.style.display = 'none'; // Oculta o overlay
+      isOverlayVisible = false; // Reseta a visibilidade do overlay
+    }
+
+    // Adiciona eventos de 'mouseenter' e 'mouseleave' a cada objeto
+    boxes.forEach(box => {
+      box.addEventListener('mouseenter', showOverlay);  // Aciona ao entrar no elemento
+      box.addEventListener('mouseleave', hideOverlay);  // Aciona ao sair do elemento
+    });
+
+
+  </script>
+
+</body>
+
+</html>
